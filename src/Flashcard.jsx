@@ -6,53 +6,58 @@ import certo from './assets/icone_certo.png';
 import quase from './assets/icone_quase.png';
 import erro from './assets/icone_erro.png';
 
-export default function Flashcard( props ) {
+export default function Flashcard( {question, answer, indice, concluidos, setConcluidos} ) {
     const [conteudo, setConteudo] = useState('conteudo branco encolhido');
     const [iconeDireita, setIconeDireita] = useState('icone-direita');
     const [nomeIcone, setNomeIcone] = useState(play);
     const [rotacionar, setRotacionar] = useState('virar escondido');
     const [containerCaixas, setContainerCaixas] = useState('container-caixas escondido');
-    const [texto, setTexto] = useState(`Pergunta ${props.indice + 1}`);
-    const [estiloTexto, setEstiloTexto] = useState('texto');
+    const [texto, setTexto] = useState(`Pergunta ${indice + 1}`);
+    const [estiloTexto, setEstiloTexto] = useState('texto negrito');
 
     function playCard() {
-        setTexto(props.question);
+        setTexto(question);
+        setEstiloTexto('texto normal');
         setConteudo('conteudo amarelo estendido');
         setIconeDireita('icone-direita escondido');
         setRotacionar('virar');
     }
 
     function virarCard() {
-        setTexto(props.answer);
+        setTexto(answer);
+        setConteudo('conteudo amarelo adaptado');
         setRotacionar('virar escondido');
         setContainerCaixas('container-caixas');
     }
 
     function nao() {
-        setTexto(`Pergunta ${props.indice + 1}`);
+        setTexto(`Pergunta ${indice + 1}`);
         setConteudo('conteudo branco encolhido');
         setContainerCaixas('container-caixas escondido');
         setIconeDireita('icone-direita');
         setNomeIcone(erro);
-        setEstiloTexto('texto cor1 riscado');
+        setEstiloTexto('texto negrito cor1 riscado');
+        setConcluidos(concluidos + 1);
     }
 
     function quaseNao() {
-        setTexto(`Pergunta ${props.indice + 1}`);
+        setTexto(`Pergunta ${indice + 1}`);
         setConteudo('conteudo branco encolhido');
         setContainerCaixas('container-caixas escondido');
         setIconeDireita('icone-direita');
         setNomeIcone(quase);
-        setEstiloTexto('texto cor2 riscado');
+        setEstiloTexto('texto negrito cor2 riscado');
+        setConcluidos(concluidos + 1);
     }
 
     function zap() {
-        setTexto(`Pergunta ${props.indice + 1}`);
+        setTexto(`Pergunta ${indice + 1}`);
         setConteudo('conteudo branco encolhido');
         setContainerCaixas('container-caixas escondido');
         setIconeDireita('icone-direita');
         setNomeIcone(certo);
-        setEstiloTexto('texto cor3 riscado');
+        setEstiloTexto('texto negrito cor3 riscado');
+        setConcluidos(concluidos + 1);
     }
 
     return (
@@ -81,7 +86,6 @@ const ContainerCard = styled.div`
         flex-direction: column;
         width: 300px;
         color: #333333;
-        font-family: 'Recursive', sans-serif;
         font-weight: 700;
         font-size: 16px;
         box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
@@ -91,7 +95,6 @@ const ContainerCard = styled.div`
     .container-caixas {
         display: flex;
         justify-content: space-between;
-        font-family: 'Recursive', sans-serif;
         font-weight: 400;
         font-size: 12px;
     }
@@ -109,10 +112,11 @@ const ContainerCard = styled.div`
     .virar {
         position: absolute;
         left: 270px;
-        top: 95px;
+        top: 110px;
     }
     button {
         display: flex;
+        font-family: 'Recursive', sans-serif;
         align-items: center;
         justify-content: center;
         text-align: center;
@@ -143,13 +147,24 @@ const ContainerCard = styled.div`
         display: none !important;
     }
     .estendido {
-        height: 110px;
+        height: 130px;
+    }
+    .adaptado {
+        box-sizing: content-box;
     }
     .encolhido {
         height: 50px;
     }
     .texto {
-
+        font-family: 'Recursive', sans-serif;
+    }
+    .normal {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    .negrito {
+        font-size: 16px;
+        font-weight: 700;
     }
     .riscado {
         text-decoration: line-through;

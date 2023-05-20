@@ -6,24 +6,23 @@ export default function Topo() {
         <>
             <Cabecalho>
                 <img src={logo} alt="logo" />
-                <h1>ZapRecall</h1>
+                <a>ZapRecall</a>
             </Cabecalho>
         </>
     );
 }
 
 const Cabecalho = styled.div`
+    width: 230px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     font-family: 'Righteous', cursive;
+    font-size: 36px;
+    font-weight: 400;
     color: #FFFFFF;
     img {
         height: 60px;
         width: 52px;
-    }
-    h1 {
-        font-size: 36px;
-        font-weight: 400;
     }
 `;

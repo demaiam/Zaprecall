@@ -1,7 +1,7 @@
 import Flashcard from "./Flashcard.jsx";
 import styled from "styled-components";
 
-export default function ListaFlashcards() {
+export default function ListaFlashcards( {concluidos, setConcluidos} ) {
     const cards = [
         { question: "O que é JSX?", answer: "Uma extensão da linguagem JavaScript" },
         { question: "O React é __", answer: "Uma biblioteca JavaScript para construção de interfaces" },
@@ -16,14 +16,15 @@ export default function ListaFlashcards() {
     return (
         <>
             <ContainerLista>
-                {cards.map ((card, index) => ( <Flashcard key={index} question={card.question} answer={card.answer} indice={index}/> ))}
+                {cards.map ((card, index) => ( <Flashcard key={index} question={card.question} answer={card.answer} indice={index} concluidos={concluidos} setConcluidos={setConcluidos}/> ))}
             </ContainerLista>
         </>
     );
 }
 
-const ContainerLista = styled.ul`
+const ContainerLista = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 1em;
+    margin-top: 10px;   
 `;

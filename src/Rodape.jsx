@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export default function Rodape() {
+export default function Rodape({concluidos, setConcluidos}) {
     return (
         <>
             <ContainerRodape>
-                0/4 Concluídos
+                <p>{concluidos}/8 CONCLUÍDOS</p>
             </ContainerRodape>
         </>
     );
@@ -21,7 +21,7 @@ const ContainerRodape = styled.div`
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     height: 70px;
     width: 100%;
-    font-family: 'Recursive', sans-serif;
+    font-family: 'Recursive';
     font-weight: 400;
     font-size: 18px;
 `;
