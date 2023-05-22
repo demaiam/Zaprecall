@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import Topo from './Topo.jsx';
-import ListaFlashcards from './ListaFlashcards';
-import Rodape from './Rodape.jsx';
-import { useState } from 'react';
+import Topo from './components/Topo.jsx'
+import ListaFlashcards from './components/ListaFlashcards';
+import Rodape from './components/Rodape.jsx';
 
 export default function App() {
   const [concluidos, setConcluidos] = useState(0);
@@ -18,8 +18,7 @@ export default function App() {
           setConcluidos={setConcluidos}/>
       </Conteudo>
       <Rodape 
-          concluidos={concluidos}
-          setConcluidos={setConcluidos}/>
+          concluidos={concluidos}/>
     </>
   );
 }
@@ -28,7 +27,7 @@ const Conteudo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 80px;
+    margin-bottom: 100px;
 `;
 
 const GlobalStyle = createGlobalStyle`

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-export default function Rodape({concluidos, setConcluidos}) {
+export default function Rodape({concluidos}) {
     return (
         <>
             <ContainerRodape>
-                <p>{concluidos}/8 CONCLUÍDOS</p>
+                <div class="rodape" data-test="footer">
+                    <p>{concluidos}/8 CONCLUÍDOS</p>
+                </div>
             </ContainerRodape>
         </>
     );

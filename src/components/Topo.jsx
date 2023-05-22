@@ -1,4 +1,4 @@
-import logo from './assets/logo.png';
+import logo from '.././assets/logo.png';
 import styled from 'styled-components';
 
 export default function Topo() {
@@ -13,6 +13,7 @@ export default function Topo() {
 }
 
 const Cabecalho = styled.div`
+    padding: 20px;
     width: 230px;
     display: flex;
     align-items: center;

@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import styled from 'styled-components'
-import virar from './assets/seta_virar.png';
-import play from './assets/seta_play.png';
-import certo from './assets/icone_certo.png';
-import quase from './assets/icone_quase.png';
-import erro from './assets/icone_erro.png';
+import virar from '.././assets/seta_virar.png';
+import play from '.././assets/seta_play.png';
+import certo from '.././assets/icone_certo.png';
+import quase from '.././assets/icone_quase.png';
+import erro from '.././assets/icone_erro.png';
 
 export default function Flashcard( {question, answer, indice, concluidos, setConcluidos} ) {
     const [conteudo, setConteudo] = useState('conteudo branco encolhido');
-    const [iconeDireita, setIconeDireita] = useState('icone-direita');
-    const [nomeIcone, setNomeIcone] = useState(play);
-    const [rotacionar, setRotacionar] = useState('virar escondido');
+    const [iconePlay, setIconePlay] = useState('icone-direita');
+    const [iconeCerto, setIconeCerto] = useState('icone-direita escondido');
+    const [iconeQuase, setIconeQuase] = useState('icone-direita escondido');
+    const [iconeErro, setIconeErro] = useState('icone-direira escondido');
+    const [iconeRotacionar, setIconeRotacionar] = useState('virar escondido');
     const [containerCaixas, setContainerCaixas] = useState('container-caixas escondido');
     const [texto, setTexto] = useState(`Pergunta ${indice + 1}`);
     const [estiloTexto, setEstiloTexto] = useState('texto negrito');
@@ -19,60 +21,54 @@ export default function Flashcard( {question, answer, indice, concluidos, setCon
         setTexto(question);
         setEstiloTexto('texto normal');
         setConteudo('conteudo amarelo estendido');
-        setIconeDireita('icone-direita escondido');
-        setRotacionar('virar');
+        setIconePlay('icone-direita escondido');
+        setIconeRotacionar('virar');
     }
 
     function virarCard() {
         setTexto(answer);
         setConteudo('conteudo amarelo adaptado');
-        setRotacionar('virar escondido');
+        setIconeRotacionar('virar escondido');
         setContainerCaixas('container-caixas');
     }
 
-    function nao() {
+    function fim(i) {
         setTexto(`Pergunta ${indice + 1}`);
         setConteudo('conteudo branco encolhido');
         setContainerCaixas('container-caixas escondido');
-        setIconeDireita('icone-direita');
-        setNomeIcone(erro);
-        setEstiloTexto('texto negrito cor1 riscado');
-        setConcluidos(concluidos + 1);
-    }
-
-    function quaseNao() {
-        setTexto(`Pergunta ${indice + 1}`);
-        setConteudo('conteudo branco encolhido');
-        setContainerCaixas('container-caixas escondido');
-        setIconeDireita('icone-direita');
-        setNomeIcone(quase);
-        setEstiloTexto('texto negrito cor2 riscado');
-        setConcluidos(concluidos + 1);
-    }
-
-    function zap() {
-        setTexto(`Pergunta ${indice + 1}`);
-        setConteudo('conteudo branco encolhido');
-        setContainerCaixas('container-caixas escondido');
-        setIconeDireita('icone-direita');
-        setNomeIcone(certo);
         setEstiloTexto('texto negrito cor3 riscado');
         setConcluidos(concluidos + 1);
+        switch (i) {
+            case 1:
+                setIconeErro('icone-direita');
+                break;
+            case 2:
+                setIconeQuase('icone-direita');
+                break;
+            case 3:
+                setIconeCerto('icone-direita');
+                break
+        }
     }
 
     return (
         <>
             <ContainerCard>
-                <div className={conteudo}>
-                    <div className="padrao">
-                        <p class={estiloTexto}>{texto}</p>
-                        <img className={iconeDireita} src={nomeIcone} alt="play" onClick={() => playCard()} />
-                        <img className={rotacionar} src={virar} alt="virar" onClick={() => virarCard()} />
-                    </div>
-                    <div className={containerCaixas}>
-                        <button className="caixa1" onClick={nao}>Não lembrei</button>
-                        <button className="caixa2" onClick={quaseNao}>Quase não lembrei</button>
-                        <button className="caixa3" onClick={zap}>Zap!</button>
+                <div class="flashcard" data-test="flashcard">
+                    <div className={conteudo}>
+                        <div className="padrao">
+                            <p class={estiloTexto} data-test="flashcard-text">{texto}</p>
+                            <img className={iconePlay} src={play} alt="play" onClick={() => playCard()} data-test="play-btn"   />
+                            <img className={iconeCerto} src={certo} alt="certo" data-test="zap-icon" />
+                            <img className={iconeQuase} src={quase} alt="quase" data-test="partial-icon" />
+                            <img className={iconeErro} src={erro} alt="erro" data-test="no-icon" />
+                            <img className={iconeRotacionar} src={virar} alt="virar" onClick={() => virarCard()} data-test="turn-btn"/>
+                        </div>
+                        <div className={containerCaixas}>
+                            <button className="caixa1" onClick={() => fim(1)} data-test="no-btn">Não lembrei</button>
+                            <button className="caixa2" onClick={() => fim(2)} data-test="partial-btn">Quase não lembrei</button>
+                            <button className="caixa3" onClick={() => fim(3)} data-test="zap-btn">Zap!</button>
+                        </div>
                     </div>
                 </div>
             </ContainerCard>
@@ -179,8 +175,3 @@ const ContainerCard = styled.div`
         color: #2FBE34;
     }
 `;
-
-
-        //visibility: ${ (props) => props.selecionada ? 'visible' : 'hidden'};
-        
-    //background: ${ selecionadas.includes(key) ? '#FFFFD4' : '#FFFFFF'};
